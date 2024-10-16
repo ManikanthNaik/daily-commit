@@ -1,0 +1,26 @@
+name: Daily Commit
+
+on:
+  schedule:
+    # Runs the job every day at midnight UTC (change the cron schedule if needed)
+    - cron: '0 0 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Update Log
+      run: |
+        echo "Daily update: $(date)" >> log.md
+
+    - name: Commit changes
+      run: |
+        git config --local user.email "maninaik054@gmail.com"
+        git config --local user.name "Manikanth Naik"
+        git add .
+        git commit -m "Daily update"
+        git push
